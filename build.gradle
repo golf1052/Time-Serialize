@@ -1,0 +1,35 @@
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://dl.bintray.com/ylemoigne/maven'
+    }
+}
+
+dependencies {
+    compile 'org.mongodb:bson:3.2.2',
+            'org.mongodb:mongodb-driver-core:3.2.2',
+            'org.mongodb:mongodb-driver:3.2.2',
+            'fr.javatic.mongo:mongo-jackson-codec:3.2.0__0.4'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.golf1052.time.SaveTest'
+    }
+
+    doFirst {
+        from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+    }
+
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+}

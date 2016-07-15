@@ -1,0 +1,8 @@
+version: '2'
+services:
+  time-serialize:
+    build: .
+    depends_on:
+     - mongo
+  mongo:
+    image: mongo
